@@ -1,7 +1,9 @@
 {
-  "rewrites": [
-    { "source": "/r/:path*", "destination": "/api/r/:path*" },
-    { "source": "/(.*)", "destination": "/index.html" }
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "^/r/(.*)$", "dest": "/api/r/$1" },
+    { "src": "^/api/(.*)$", "dest": "/api/$1" },
+    { "src": "^(?!/api/)(.*)$", "dest": "/index.html" }
   ]
 }
 
