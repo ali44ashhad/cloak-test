@@ -1,0 +1,23 @@
+node_modules
+dist
+dist-ssr
+*.local
+.vite
+.DS_Store
+.env
+.env.*
+!.env.example
+
+# Server runtime data
+server/data
+server/dist
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

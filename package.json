@@ -1,0 +1,37 @@
+{
+  "name": "cloak-dashboard",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Production-ready URL cloaking management dashboard backed by an Express + SQLite server.",
+  "scripts": {
+    "dev": "concurrently -n web,api -c blue,magenta --kill-others-on-fail \"npm:dev:web\" \"npm:dev:api\"",
+    "dev:web": "vite",
+    "dev:api": "npm --prefix server run dev",
+    "build": "npm run build:web && npm run build:api",
+    "build:web": "tsc -b && vite build",
+    "build:api": "npm --prefix server run build",
+    "start": "npm --prefix server start",
+    "preview": "vite preview",
+    "type-check": "tsc --noEmit && npm --prefix server run type-check",
+    "install:all": "npm install && npm --prefix server install"
+  },
+  "dependencies": {
+    "lucide-react": "^0.468.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hot-toast": "^2.4.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.1.0",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
