@@ -1,5 +1,11 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm -w apps/web run build",
+  "outputDirectory": "apps/web/dist",
+  "installCommand": "npm install",
+  "framework": null,
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/r/:slug", "destination": "/api/r/:slug" },
+    { "source": "/((?!api/|assets/).*)", "destination": "/index.html" }
   ]
 }

@@ -6,7 +6,8 @@
   "workspaces": ["apps/web", "apps/api"],
   "scripts": {
     "dev": "concurrently -n web,api -c blue,magenta --kill-others-on-fail \"npm -w apps/web run dev\" \"npm -w apps/api run dev\"",
-    "build": "npm -w apps/web run build && npm -w apps/api run build",
+    "build": "npm -w apps/web run build",
+    "build:all": "npm -w apps/web run build && npm -w apps/api run build",
     "start": "npm -w apps/api run start",
     "preview": "npm -w apps/web run preview",
     "type-check": "npm -w apps/web run type-check && npm -w apps/api run type-check",

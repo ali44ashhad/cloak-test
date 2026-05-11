@@ -1,0 +1,16 @@
+node_modules
+.env
+.env.*
+!.env.example
+
+# Local build artifacts — Vercel rebuilds everything fresh
+dist
+apps/web/dist
+apps/api/dist
+server
+.vite
+
+# Tooling
+.vscode
+.idea
+*.log
