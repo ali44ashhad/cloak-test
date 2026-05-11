@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
-import { Github, Link2, Loader2, RefreshCw, ShieldCheck } from "lucide-react";
+import { Link2, Loader2, RefreshCw, ShieldCheck } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
 import { ApiError } from "../api";
 import { useLinks } from "../hooks/useLinks";
