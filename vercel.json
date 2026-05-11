@@ -1,7 +1,14 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "rewrites": [{ "source": "/r/:path*", "destination": "/api/r/:path*" }],
-  "buildCommand": "npm run build",
-  "outputDirectory": "apps/web/dist"
+  "version": 2,
+  "builds": [
+    {
+      "src": "apps/web/package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "dist" }
+    },
+    { "src": "api/[...path].ts", "use": "@vercel/node" }
+  ],
+  "rewrites": [{ "source": "/r/:path*", "destination": "/api/r/:path*" }]
 }
 
