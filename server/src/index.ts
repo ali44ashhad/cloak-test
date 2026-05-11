@@ -1,17 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import cors from "cors";
 import dotenv from "dotenv";
-import express, {
-  type ErrorRequestHandler,
-  type NextFunction,
-  type Request,
-  type Response,
-} from "express";
-import { apiRouter } from "./routes/api.js";
-import { redirectRouter } from "./routes/redirect.js";
-import { connectMongo, disconnectMongo, isHealthy } from "./db.js";
+import express, { type NextFunction, type Request, type Response } from "express";
+import { connectMongo, disconnectMongo } from "./db.js";
+import { createServerApp } from "./serverApp.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -52,34 +45,7 @@ if (!MONGODB_URI) {
   process.exit(1);
 }
 
-const app = express();
-
-app.disable("x-powered-by");
-app.set("trust proxy", true);
-app.use(cors());
-app.use(express.json({ limit: "256kb" }));
-
-app.use((req: Request, res: Response, next: NextFunction) => {
-  const start = Date.now();
-  res.on("finish", () => {
-    const elapsed = Date.now() - start;
-    console.log(
-      `[cloak] ${req.method} ${req.originalUrl} -> ${res.statusCode} (${elapsed}ms)`
-    );
-  });
-  next();
-});
-
-app.get("/api/health", async (_req: Request, res: Response) => {
-  const dbOk = await isHealthy();
-  res.status(dbOk ? 200 : 503).json({
-    ok: dbOk,
-    db: dbOk ? "connected" : "unreachable",
-  });
-});
-
-app.use("/api", apiRouter);
-app.use("/r", redirectRouter);
+const app = createServerApp();
 
 const distPath = path.resolve(PROJECT_ROOT, "dist");
 if (fs.existsSync(distPath)) {
@@ -95,13 +61,6 @@ if (fs.existsSync(distPath)) {
     res.sendFile(path.join(distPath, "index.html"));
   });
 }
-
-const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
-  console.error("[cloak] unhandled error:", err);
-  if (res.headersSent) return;
-  res.status(500).json({ error: err?.message ?? "Internal server error." });
-};
-app.use(errorHandler);
 
 async function bootstrap(): Promise<void> {
   try {

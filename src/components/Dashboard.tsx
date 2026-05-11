@@ -175,16 +175,7 @@ export function Dashboard() {
               />
               <span className="hidden sm:inline">Refresh</span>
             </button>
-            <a
-              className="btn-ghost"
-              href="https://github.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Documentation"
-            >
-              <Github className="h-4 w-4" />
-              <span className="hidden sm:inline">Docs</span>
-            </a>
+             
           </div>
         </div>
       </header>
