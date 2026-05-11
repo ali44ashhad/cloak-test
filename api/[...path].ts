@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
-import handler from "../server/dist/handler.js";
+import handler from "../apps/api/dist/handler.js";
 
 export default async function vercelApi(
   req: IncomingMessage,

@@ -8,6 +8,8 @@ dist-ssr
 .env.*
 !.env.example
 
+*.tsbuildinfo
+
 # Server runtime data
 server/data
 server/dist

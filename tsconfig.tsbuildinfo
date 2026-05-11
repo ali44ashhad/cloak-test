@@ -1,1 +1,0 @@
-{"root":["./src/app.tsx","./src/api.ts","./src/main.tsx","./src/types.ts","./src/utils.ts","./src/vite-env.d.ts","./src/components/confirmmodal.tsx","./src/components/dashboard.tsx","./src/components/statssection.tsx","./src/components/toggleswitch.tsx","./src/components/urlform.tsx","./src/components/urltable.tsx","./src/hooks/uselinks.ts"],"version":"5.9.3"}

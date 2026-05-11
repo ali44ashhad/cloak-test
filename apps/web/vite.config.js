@@ -9,16 +9,8 @@ export default defineConfig({
         open: true,
         strictPort: false,
         proxy: {
-            "/api": {
-                target: API_TARGET,
-                changeOrigin: false,
-                secure: false,
-            },
-            "/r": {
-                target: API_TARGET,
-                changeOrigin: false,
-                secure: false,
-            },
+            "/api": { target: API_TARGET, changeOrigin: false, secure: false },
+            "/r": { target: API_TARGET, changeOrigin: false, secure: false },
         },
     },
 });
