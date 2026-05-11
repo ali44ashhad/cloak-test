@@ -1,5 +1,5 @@
 import crypto from "node:crypto";
-import { Router, type Request } from "express";
+import { Router, type NextFunction, type Request, type Response } from "express";
 import {
   SLUG_COLLATION,
   dailyClicks,
@@ -85,7 +85,9 @@ function statusPage(title: string, body: string): string {
 </html>`;
 }
 
-redirectRouter.get("/:slug", async (req, res, next) => {
+redirectRouter.get(
+  "/:slug",
+  async (req: Request, res: Response, next: NextFunction) => {
   try {
     const slug = req.params.slug;
     if (!slug) {
@@ -204,4 +206,5 @@ redirectRouter.get("/:slug", async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
+  }
+);

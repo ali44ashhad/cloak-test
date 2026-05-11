@@ -59,7 +59,7 @@ app.set("trust proxy", true);
 app.use(cors());
 app.use(express.json({ limit: "256kb" }));
 
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
   const start = Date.now();
   res.on("finish", () => {
     const elapsed = Date.now() - start;
@@ -70,7 +70,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/api/health", async (_req, res) => {
+app.get("/api/health", async (_req: Request, res: Response) => {
   const dbOk = await isHealthy();
   res.status(dbOk ? 200 : 503).json({
     ok: dbOk,

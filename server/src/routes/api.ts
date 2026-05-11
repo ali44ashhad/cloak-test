@@ -1,5 +1,5 @@
 import crypto from "node:crypto";
-import { Router, type Request } from "express";
+import { Router, type NextFunction, type Request, type Response } from "express";
 import { z } from "zod";
 import {
   SLUG_COLLATION,
@@ -78,11 +78,13 @@ async function findBySlug(slug: string): Promise<LinkDoc | null> {
   return links().findOne({ slug }, { collation: SLUG_COLLATION });
 }
 
-apiRouter.get("/health", (_req, res) => {
+apiRouter.get("/health", (_req: Request, res: Response) => {
   res.json({ ok: true });
 });
 
-apiRouter.get("/links", async (req, res, next) => {
+apiRouter.get(
+  "/links",
+  async (req: Request, res: Response, next: NextFunction) => {
   try {
     const origin = getOrigin(req);
     const docs = await links()
@@ -93,9 +95,12 @@ apiRouter.get("/links", async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
+  }
+);
 
-apiRouter.post("/links", async (req, res, next) => {
+apiRouter.post(
+  "/links",
+  async (req: Request, res: Response, next: NextFunction) => {
   try {
     const parsed = createSchema.safeParse(req.body);
     if (!parsed.success) {
@@ -158,9 +163,12 @@ apiRouter.post("/links", async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
+  }
+);
 
-apiRouter.patch("/links/:id", async (req, res, next) => {
+apiRouter.patch(
+  "/links/:id",
+  async (req: Request, res: Response, next: NextFunction) => {
   try {
     const parsed = updateSchema.safeParse(req.body);
     if (!parsed.success) {
@@ -192,9 +200,12 @@ apiRouter.patch("/links/:id", async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
+  }
+);
 
-apiRouter.delete("/links/:id", async (req, res, next) => {
+apiRouter.delete(
+  "/links/:id",
+  async (req: Request, res: Response, next: NextFunction) => {
   try {
     const result = await links().deleteOne({ _id: req.params.id });
     if (result.deletedCount === 0) {
@@ -205,9 +216,12 @@ apiRouter.delete("/links/:id", async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
+  }
+);
 
-apiRouter.get("/stats", async (_req, res, next) => {
+apiRouter.get(
+  "/stats",
+  async (_req: Request, res: Response, next: NextFunction) => {
   try {
     const today = new Date().toISOString().slice(0, 10);
     const [total, active, uniqueAgg, daily] = await Promise.all([
@@ -229,4 +243,5 @@ apiRouter.get("/stats", async (_req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
+  }
+);
