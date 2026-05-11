@@ -4,8 +4,6 @@ dist-ssr
 *.local
 .vite
 .DS_Store
-.env
-.env.*
 !.env.example
 
 *.tsbuildinfo
@@ -23,3 +21,4 @@ server/dist
 *.njsproj
 *.sln
 *.sw?
+config.bat
